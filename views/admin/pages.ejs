@@ -1,0 +1,30 @@
+<%- include('../_layouts/adminheader'); %>
+<br>
+<h2 class="page-title">Pages</h2>
+<a href="/admin/pages/add-page" class="btn btn-primary">Add new Page</a>
+<br><br>
+
+<table class="table table-stripped sorting-table">
+   <thead class="thead-dark">
+      <tr class="home">
+         <th>Title</th>
+         <th>Edit</th>
+         <th>Delete</th>
+      </tr>
+   </thead>
+   <tbody>
+      <% for(let i of Pages){ %>
+         <tr id="id_<%= i._id %>" class="<%= i.slug %>">
+            <td><%= i.title %></td>
+            <td><a href="/admin/pages/edit-page/<%= i._id %>" class="text-info">Edit</a></td>
+            <% if (i.slug == "home") { %>
+               <td></td>
+            <% } else { %>
+               <td><a href="/admin/pages/delete-page/<%= i._id %>" class="text-danger confirmDelete">Delete</a></td>
+            <% } %>
+         </tr>
+      <% } %>
+      </tr>
+   </tbody>
+</table>
+<%- include('../_layouts/adminfooter'); %>

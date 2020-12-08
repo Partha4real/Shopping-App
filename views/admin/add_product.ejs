@@ -1,0 +1,35 @@
+<%- include('../_layouts/adminheader'); %>
+<br>
+<h2 class="page-title">Add a product</h2>
+<a href="/admin/products" class="btn btn-primary">Back to All products</a>
+<br><br>
+
+<form action="/admin/products/add-product" method="post" enctype="multipart/form-data">
+   <div class="from-group">
+    <label for="">Title</label>
+    <input type="text" class="form-control" name="title" value="<%= typeof title != 'undefined' ? title : '' %>" placeholder="Title">
+   </div> 
+   <div class="from-group">
+      <label for="">Description</label>
+      <textarea name="desc" class="form-control" cols="30" rows="10" id="editor" placeholder="Description"><%= typeof desc != 'undefined' ? desc : '' %></textarea>
+   </div>
+   <div class="from-group">
+      <label for="">Categoty</label>
+      <select name="category" class="form-control">
+         <% for(let i of Categories){ %>
+         <option value="<%= i.slug %>"><%= i.title %></option>
+         <% } %>
+      </select>
+   </div>
+   <div class="from-group">
+      <label for="">Price</label>
+      <input type="text" class="form-control" name="price" value="<%= typeof price != 'undefined' ? price : '' %>" placeholder="Price">
+   </div>
+   <div class="from-group">
+      <label for="">Image</label>
+      <input type="file" class="form-control" name="image" id="img_product" onchange="document.getElementById('imgPreview').src = window.URL.createObjectURL(this.files[0]); document.getElementById('imgPreview').setAttribute('style', 'width: 100px');">  <!--preview image -->
+      <img id="imgPreview">
+   </div>
+   <button type="submit" class="btn btn-success mt-1">Submit</button>
+</form>
+<%- include('../_layouts/adminfooter'); %>

@@ -1,0 +1,31 @@
+<%- include('./_layouts/header'); %>
+<div class="product_details">
+    <h1 class="page-header text-dark m-2"><%= product.title %></h1>
+<div class="row">
+    <div class="col-xs-12 col-md-5">
+        <img src="/uploads/<%= product.category %>/<%= product.title %>/<%= product.image %>" class="img-fluid product_single">
+        <br>
+    </div>
+    <div class="col-xs-12 col-md-7">
+        <p class="p-2"><%- product.desc %></p>
+        <p>₹ <%= parseFloat(product.price).toFixed(2) %></p>
+        <% if (loggedIn) { %>
+            <p><a href="/cart/add/<%= product.slug %>" class="btn btn-warning">Add to cart</a></p>
+        <% } else { %>
+            <p class="text-info"><strong>Login to purchase items.</strong></p>
+        <% } %>
+    </div>
+    <div class="col-xs-12">
+        <ul class="list-inline productD_gallery">
+            <% for(let g of galleryImage){ %>
+                <li class="list-inline-item">
+                    <a data-fancybox="gallery" href="/uploads/<%= product.category %>/<%= product.title %>/gallery/<%= g %>">
+                        <img src="/uploads/<%= product.category %>/<%= product.title %>/gallery/<%= g %>" style="width: 5rem;" class="m-3">
+                     </a>
+                </li>   
+             <% } %>
+        </ul>
+    </div>
+</div>
+</div>
+<%- include('./_layouts/footer'); %>

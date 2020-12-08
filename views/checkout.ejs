@@ -1,0 +1,50 @@
+<%- include('./_layouts/header'); %>
+
+<% if (typeof cart !== "undefined") { %>
+    <div class="cart-table-div">
+        <table class="table table- table-responsive-sm alignmiddle">
+            <thead class="thead-light">
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th></th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <% let total = 0 %>
+            <% for(let item of cart){ %>
+                <% let sub = parseFloat(item.quantity * item.price).toFixed(2) %>
+                <% total += +sub %>
+                <tr>
+                    <td><img src="<%= item.image %>" style="width: 50px;"></td>
+                    <td><%= item.title %></td>
+                    <td>₹ <%= item.price %></td>
+                    <td><%= item.quantity %></td>
+                    <td>
+                        <a href="/cart/update/<%= item.title %>?action=add"><i class="fas fa-plus text-success"></i></a>&nbsp;
+                        <a href="/cart/update/<%= item.title %>?action=remove"><i class="fas fa-minus text-danger"></i></a>&nbsp;
+                        <a href="/cart/update/<%= item.title %>?action=clear"><i class="fas fa-trash-alt text-dark"></i></a>&nbsp;
+                    </td>
+                    <td>₹ <%= sub %></td>
+                </tr>
+            <% } %>
+            <tr>
+                <td colspan="6" align="left"><strong>Total</strong>: <span class="text-info"> ₹ <%= parseFloat(total).toFixed(2) %></span></td>
+            </tr>
+            <tr>
+                <td colspan="6" align="right">
+                    <a href="/cart/clear" class="btn btn-danger confirmClearcart">Clear Cart</a>
+                    <a href="/cart/payment?amount=<%= total %>" class="btn btn-primary buynow">Buy now</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+<% } else { %>
+    <h3 class="text-center m-4">
+        Your Cart is Empty.
+    </h3>
+<% } %>
+
+<%- include('./_layouts/footer'); %>

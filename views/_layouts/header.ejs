@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title><%= title %></title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="icon" href="https://icons-for-free.com/iconfiles/png/512/buy+citycons+mall+shopping+icon-1320136423977087098.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,500;0,800;0,900;1,100;1,200;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/"><strong class="font-italic text-light">Van Vihar</strong></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mr-auto">
+            <% for(let i of page){ %>
+              <% if(i.slug == "home") { %>
+                <li class="nav-item"><a href="/" class="nav-link"><%= i.title %></a></li>
+              <% } else { %>
+                <li class="nav-item"><a href="/<%= i.slug %>" class="nav-link"><%= i.title %></a></li>
+              <% } %>  
+            <% } %>
+            <% if (user && user.admin == 1) { %>
+              <li class="nav-item"><a href="/admin/pages" class="nav-link text-warning"><strong>Admin Area</strong></a></li>
+            <% } %>
+          </ul>
+          <ul class="navbar-nav navbar-right">
+            <% if (user) { %>
+              <li class="nav-item active"><sapn class="text-info navbar-text" style="margin-right: 1rem;"><i class="far fa-user"></i> <%= user.username %></sapn></li>
+            <% } %>
+            <li>
+              <a href="/cart/checkout" class="nav-link p-2">
+                <!-- <i class="fas fa-shopping-cart" style="color: lightblue;"></i> &nbsp; -->
+                <% if (typeof cart !== "undefined") { %>
+                  <p class="nav-text notification">
+                    <i style="font-size:20px; color: lightblue;" class="fas fa-shopping-cart"></i>
+                    <span class="badge"><%= cart.length %></span>
+                  </p>
+                <% } else { %>
+                  <p class="nav-text notification">
+                    <i style="font-size:20px; color: lightblue;" class="fas fa-shopping-cart"></i>
+                    <span class="badge">0</span>
+                  </p>
+                <% } %>
+              </a>
+            </li>
+            <% if (user) { %>
+              <li class="nav-item"><a href="/user/logout" class="nav-link">Logout</a></li>
+            <% } else { %>
+              <li class="nav-item"><a href="/user/register" class="nav-link">Register</a></li>
+              <li class="nav-item"><a href="/user/login" class="nav-link">Login</a></li>
+            <% } %>
+            <!-- check if user is ADMIN -->
+            
+            
+          </ul>
+          <!-- <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
+          </form> -->
+        </div>
+      </nav>
+
+      <div class="user-content">
+        <%- include('../partials/messages'); %>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-3">
+            <h3 class="m-2 p-3">Categories</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><a class="nav-link text-warning" href="/products/all-products"><strong>All products</strong></a></li>
+              <% for(let i of category){ %>
+                <li class="list-group-item"><a class="nav-link text-primary" href="/products/<%= i.slug %>"><%= i.title %></a></li>
+              <% } %>
+            </ul>
+          </div>
+          <!-- <div class="col-xs-12 col-md-1"></div> -->
+          <div class="col-xs-12 col-md-9">
+
+          
+
+
+      
