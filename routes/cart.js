@@ -101,8 +101,6 @@ router.get('/update/:product', async(req, res) => {
 //@route    GET /cart/checkout
 //@access   PUBLIC
 router.get('/clear', async(req, res) => {
-    delete req.session.cart;
-    
     req.flash('success_msg', 'Cart cleared');
     res.redirect('/cart/checkout'); 
 });

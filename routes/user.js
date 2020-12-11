@@ -9,9 +9,13 @@ const User = require('../models/user');
 //@route    POST /user/register
 //@access   PUBLIC
 router.get('/register', (req, res) => {
-    res.render('register',{
-        title: 'Register'
-    });
+    if (res.locals.user) {
+        res.redirect('/');
+    } else {
+        res.render('register',{
+            title: 'Register'
+        });
+    }
 });
 
 //@desc     Registration for user
@@ -96,10 +100,11 @@ router.post('/register', async (req, res) => {
 router.get('/login', (req, res) => {
     if (res.locals.user) {
         res.redirect('/');
+    } else {
+        res.render('login', {
+            title: 'Login'
+        }); 
     }
-    res.render('login', {
-        title: 'Login'
-    });
 });
 
 //@desc     login for user
@@ -117,9 +122,12 @@ router.post('/login', async(req, res, next) => {
 //@desc     logout user
 //@route    /user/logout
 router.get('/logout', (req, res) => {
-    // console.log(req.session.cart)
+    delete req.session.cart;
+
     req.logout();
     req.flash('success_msg', 'You are logged out')
+    console.log(req.session)
+
     res.redirect('/user/login');
 });
 

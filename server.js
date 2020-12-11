@@ -24,14 +24,14 @@ app.use(express.json());
 
 // express-session
 app.use(session({
-    name: 'Shopping Cart',
+    name: 'Shopping-Cart',
     secret: 'secret',
-    resave: true,
-    saveUninitialized: true,
-    expires: new Date(Date.now() + (30 * 86400 * 1000)),
-    //cookie: {secure: true},   //not requires
+    resave: false,
+    saveUninitialized: true,  
+    cookie: {maxAge: 1000 * 60 * 60 * 24},   //not requires
     store: new MongoStore( {
         mongooseConnection: mongoose.connection,
+        //connection: 'sessions',    //A name of collection used for storing sessions.
         autoRemove:'disabled'
     },
     (err)=>{
@@ -86,7 +86,7 @@ app.use(passport.session());
 
 // session cart whis is a array that holds objects(products) ** to make it available in each GET request
 app.get('*', (req, res, next) => {
-    res.locals.cart = req.session.cart;
+    res.locals.cart = req.session.cart ;
     res.locals.user = req.user || null;  // if the user is logged in we have access to user or NULL
     next();
 })

@@ -1,7 +1,7 @@
 <%- include('./_layouts/header'); %>
 <div class="row products">
     <% for(let i of product){ %>
-        <div class="col-sm-6 col-md-4 col-lg-3 product" >
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3 product" >
             <a href="/products/<%= i.category %>/<%= i.slug %>" class="product_link">
                 <img src="/uploads/<%= i.category %>/<%= i.title %>/<%= i.image %>" class="img-fluid product_image p-2">
             </a>
